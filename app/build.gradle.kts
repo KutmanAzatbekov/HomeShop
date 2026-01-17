@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.21"
 }
@@ -54,6 +55,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //NavHost
+    implementation("androidx.navigation:navigation-ui:2.9.6")
+
+
+
 
     // 1. Сеть
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
