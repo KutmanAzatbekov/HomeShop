@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.geeks.homeshop.ui.fragments.product.ProductDetailFragment"
+        android:name="com.geeks.homeshop.ui.fragments.product.detail.ProductDetailFragment"
         android:label="ProductDetailFragment" >
         <argument
             android:name="productId"
