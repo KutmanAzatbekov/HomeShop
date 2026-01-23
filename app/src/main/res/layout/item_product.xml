@@ -54,7 +54,7 @@
                 android:layout_alignParentEnd="true"
                 android:textStyle="bold"
                 android:textSize="14sp"
-                android:text=""
+                android:text="$ 100"
                 android:textColor="#2E7D32"/>
 
         </RelativeLayout>

@@ -5,7 +5,6 @@ import coil3.load
 import coil3.request.crossfade
 import com.geeks.homeshop.databinding.FragmentDetailBinding
 import com.geeks.homeshop.ui.base.BaseFragment
-import com.geeks.homeshop.ui.fragments.product.ProductDetailFragmentArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProductDetailFragment: BaseFragment<FragmentDetailBinding, DetailViewModel>(

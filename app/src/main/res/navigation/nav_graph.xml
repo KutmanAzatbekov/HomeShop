@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_productListFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -20,4 +23,10 @@
             android:name="productId"
             app:argType="integer"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.geeks.homeshop.ui.fragments.cart.CartFragment"
+        android:label="CartFragment" />
+
 </navigation>

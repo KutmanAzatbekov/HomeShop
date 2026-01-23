@@ -3,6 +3,7 @@ package com.geeks.homeshop.ui.fragments.product
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.geeks.homeshop.domain.models.Product
+import com.geeks.homeshop.domain.usecases.AddToCartUseCase
 import com.geeks.homeshop.domain.usecases.GetProductsUseCase
 import com.geeks.homeshop.ui.models.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +12,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ListViewModel(
-    private val getProductsUseCase: GetProductsUseCase
+    private val getProductsUseCase: GetProductsUseCase,
+    private val addToCartUseCase: AddToCartUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow<UiState<List<Product>>>(UiState.Loading)
@@ -31,6 +33,12 @@ class ListViewModel(
             } catch (e: Exception){
                 _state.value = UiState.Error(e.message ?: "Error")
             }
+        }
+    }
+
+    fun addToCart(product: Product) {
+        viewModelScope.launch {
+            addToCartUseCase(product)
         }
     }
 

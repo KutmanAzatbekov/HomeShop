@@ -11,7 +11,8 @@ import com.geeks.homeshop.databinding.ItemProductBinding
 import com.geeks.homeshop.domain.models.Product
 
 class ProductAdapter(
-    private val onClick: (Product) -> Unit
+    private val onClick: (Product) -> Unit,
+    private val onBuyClick: (Product) -> Unit
 ): ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffUtilCallback()) {
 
     class ProductDiffUtilCallback: DiffUtil.ItemCallback<Product>(){
@@ -49,6 +50,11 @@ class ProductAdapter(
             root.setOnClickListener {
                 onClick.invoke(item)
             }
+
+            btnAdd.setOnClickListener {
+                onBuyClick.invoke(item)
+            }
+
         }
     }
 
