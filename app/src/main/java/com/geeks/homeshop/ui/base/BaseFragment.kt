@@ -62,6 +62,18 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>(
         }
     }
 
+    protected fun <T> StateFlow<T>.collectFlow(
+        onCollect: (T) -> Unit
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                this@collectFlow.collect { state ->
+                   onCollect(state)
+                }
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

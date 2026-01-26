@@ -19,7 +19,16 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>(
 
     override fun onBind(binding: FragmentCartBinding) {
         setupRecycler()
-        observeData()
+
+        viewModel.items.collectFlow { state ->
+            adapter.submitList(state)
+            binding.btnCheckout.isEnabled = state.isNotEmpty()
+        }
+
+        viewModel.total.collectFlow { state ->
+            binding.tvTotalValue.text = "$ %.2f".format(state)
+        }
+
         binding.btnCheckout.setOnClickListener {
             viewModel.checkout()
         }
@@ -29,26 +38,6 @@ class CartFragment : BaseFragment<FragmentCartBinding, CartViewModel>(
     private fun setupRecycler() {
         binding.rvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCart.adapter = adapter
-    }
-
-
-    private fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.items.collect { items ->
-                    adapter.submitList(items)
-                    binding.btnCheckout.isEnabled = items.isNotEmpty()
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.total.collect { sum ->
-                    binding.tvTotalValue.text = "$ %.2f".format(sum)
-                }
-            }
-        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.geeks.homeshop.data.repository
 
 import com.geeks.homeshop.data.datasourse.StoreApi
+import com.geeks.homeshop.data.mappers.toDto
 import com.geeks.homeshop.data.model.CartProductDto
 import com.geeks.homeshop.data.model.CartRequestDto
 import com.geeks.homeshop.domain.models.CartItem
@@ -22,14 +23,14 @@ class CartReposotoryImpl(
             val existing = currentList.find { findProduct ->
                 findProduct.product.id == product.id
             }
-            if (existing != null) {
+
+            if (existing == null){
+                return@update currentList + CartItem(product, 1)
+            }
                 currentList.map { currentProduct ->
                     if (currentProduct.product.id == product.id) currentProduct.copy(quantity = currentProduct.quantity + 1)
                     else currentProduct
                 }
-            } else {
-                currentList + CartItem(product, 1)
-            }
 
         }
     }
@@ -43,7 +44,7 @@ class CartReposotoryImpl(
             val response = api.checkout(
                 CartRequestDto(
                     products =
-                        _cartItems.value.map { CartProductDto(it.product.id, it.quantity) }
+                        _cartItems.value.map { it.toDto() }
                 ))
 
             Result.success("Заказ №${response.id} оформлен!")
